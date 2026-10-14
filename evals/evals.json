@@ -1,0 +1,289 @@
+{
+  "version": "lite-3.10",
+  "focus": "fixed subagent prompt: hard-word detection + in-context POS + why-hard + simple-English meaning + Reader-native senses/anchors: model owns meaning, script (Reader code) owns location, validator owns publishability",
+  "hard_contracts": {
+    "english_only_student_facing": true,
+    "no_chinese_output": true,
+    "no_word_self_explanation": true,
+    "pos_judged_from_sentence_syntax": true,
+    "phrase_first_before_component_words": true,
+    "common_word_sense_shift_included": true,
+    "figurative_language_included": true,
+    "meaning_is_occurrence_specific": true,
+    "fixed_prompt_sent_verbatim": true,
+    "merge_keeps_first_occurrence_entry": true,
+    "subagent_block_has_verbatim_sentence_line": true,
+    "script_never_invents_coordinates": true,
+    "anchors_computed_by_reader_numbering_code": true,
+    "colliding_keys_become_one_entry_with_senses": true,
+    "exactly_one_default_sense_others_anchored": true,
+    "unlocatable_sentence_gets_no_anchor_and_a_warning": true,
+    "here_is_never_written": true,
+    "everyday_word_never_used_as_key_for_other_spelling": true,
+    "no_cjk_in_glossary": true,
+    "repo_validator_exit_0_before_delivery": true,
+    "lookup_replay_exit_0_before_delivery": true,
+    "noun_meaning_not_shown_on_a_verb_use": true,
+    "pos_gap_exits_2_until_the_other_part_of_speech_is_written": true,
+    "different_construction_is_a_meaning_gap": true,
+    "default_sense_is_the_one_covering_the_most_places": true,
+    "rare_word_label_does_not_cross_a_construction": true,
+    "close_sentence_locates_when_one_place_wins": true,
+    "whole_book_build_stops_on_a_missing_chapter_or_hard_word": true,
+    "no_example_sentences_in_the_prompt_or_the_file": true,
+    "passage_is_about_500_to_800_words_of_complete_paragraphs": true,
+    "book_title_is_on_the_fixed_prompt": true,
+    "scattered_quotes_from_copyrighted_books_are_required": true,
+    "do_not_skip_gaps_because_the_book_is_copyrighted": true,
+    "rare_word_meaning_is_the_sense_of_the_cited_sentence": true,
+    "same_pos_and_construction_with_a_different_sense_is_its_own_block": true,
+    "copula_be_does_not_force_a_verb": true,
+    "meaning_checked_against_its_sentence_before_delivery": true,
+    "phrase_replaces_a_dictionary_word_meaning_in_the_same_sentence": true,
+    "second_review_failure_is_decided_by_the_main_flow": true,
+    "usual_sense_rewrite_stays_rare_word": true,
+    "phrase_drops_the_word_only_when_that_use_is_the_only_one": true,
+    "sentence_under_four_words_keeps_a_general_meaning": true,
+    "new_gaps_after_review_are_closed_before_delivery": true,
+    "a_named_unclosable_gap_may_be_delivered": true,
+    "hyphen_join_is_a_different_construction": true,
+    "same_content_neighbor_of_a_bound_sense_is_a_meaning_gap": true,
+    "general_match_also_checks_other_openings": true,
+    "phrase_with_other_uses_gets_a_bound_sense": true,
+    "gloss_says_only_what_the_sentence_shows": true
+  },
+  "regressions": [
+    {
+      "case": "scratches (The cat scratches the sofa)",
+      "expected": [
+        "verb_pos"
+      ],
+      "must_not": [
+        "noun_marks_only"
+      ]
+    },
+    {
+      "case": "golden drifts",
+      "expected": [
+        "noun_pos_figurative_simile"
+      ],
+      "must_not": [
+        "verb_only"
+      ]
+    },
+    {
+      "case": "jumbled",
+      "expected": [
+        "adjective_pos"
+      ],
+      "must_not": [
+        "skip_as_rare"
+      ]
+    },
+    {
+      "case": "she bites her fingernails (Out of My Mind, chapter 12)",
+      "expected": [
+        "verb_pos",
+        "uses her teeth"
+      ],
+      "must_not": [
+        "plural_noun",
+        "one_mouthful_of_food"
+      ]
+    },
+    {
+      "case": "babbles",
+      "expected": [
+        "verb_pos"
+      ],
+      "must_not": [
+        "noun_only"
+      ]
+    },
+    {
+      "case": "tangy",
+      "expected": [
+        "adjective_pos"
+      ]
+    },
+    {
+      "case": "get stuck",
+      "expected": [
+        "phrase_semantic_unit"
+      ],
+      "must_not": [
+        "stuck_literal_glue_only"
+      ]
+    },
+    {
+      "case": "filled (the smell filled the kitchen)",
+      "expected": [
+        "unusual_local_sense"
+      ],
+      "must_not": [
+        "container_only"
+      ]
+    },
+    {
+      "case": "either (nobody understands her either)",
+      "expected": [
+        "end_of_negative_grammar_role"
+      ],
+      "must_not": [
+        "either_or_only"
+      ]
+    },
+    {
+      "case": "MREs",
+      "expected": [
+        "abbreviation_expanded_to_full_form"
+      ],
+      "must_not": [
+        "skipped_as_proper_noun"
+      ]
+    },
+    {
+      "case": "Mormon",
+      "expected": [
+        "religion_background_given"
+      ],
+      "must_not": [
+        "skipped_as_name"
+      ]
+    },
+    {
+      "case": "Grandma-down-the-hill",
+      "expected": [
+        "nickname_explained"
+      ],
+      "must_not": [
+        "skipped_as_plain_label"
+      ]
+    },
+    {
+      "case": "barn",
+      "expected": [
+        "outside_1200_included"
+      ],
+      "must_not": [
+        "skipped_as_simple_word"
+      ]
+    },
+    {
+      "case": "fence",
+      "expected": [
+        "outside_1200_included"
+      ],
+      "must_not": [
+        "skipped_as_simple_word"
+      ]
+    },
+    {
+      "case": "even if",
+      "expected": [
+        "logical_connector_entry"
+      ],
+      "must_not": [
+        "skipped_as_function_word"
+      ]
+    },
+    {
+      "case": "in case",
+      "expected": [
+        "connector_phrase_entry"
+      ],
+      "must_not": [
+        "skipped_as_function_word"
+      ]
+    },
+    {
+      "case": "keep on",
+      "expected": [
+        "connector_phrase_entry"
+      ],
+      "must_not": [
+        "skipped_as_common_words"
+      ]
+    }
+  ],
+  "script_regressions": [
+    {
+      "case": "sweat vs sweats (Out of My Mind)",
+      "input": "flat entries sweat (water) + sweats (clothes)",
+      "expected": [
+        "one entry key sweat",
+        "default sense = water",
+        "clothes sense anchors = chapter 5/13/30/31 occurrence 1, form sweats",
+        "tap on sweats in chapter 5 opens clothes even when the Reader strips plural s first"
+      ],
+      "must_not": [
+        "sweats left as a second top-level key",
+        "anchor chapter taken from an EPUB file name"
+      ]
+    },
+    {
+      "case": "keys used for a door key and a keyboard key (same spelling, two blocks)",
+      "expected": [
+        "one entry key with two senses",
+        "only the use pinned by the verbatim Sentence is anchored",
+        "other uses fall to the default sense"
+      ],
+      "must_not": [
+        "an anchor written for a sentence that is not in the book word for word"
+      ]
+    },
+    {
+      "case": "fabricated Sentence (a line that is not in the book)",
+      "expected": [
+        "no anchor",
+        "warning names the word"
+      ],
+      "must_not": [
+        "guessed chapter or occurrence"
+      ]
+    },
+    {
+      "case": "symphonies",
+      "expected": [
+        "key symphony",
+        "forms [symphonies]"
+      ]
+    },
+    {
+      "case": "news",
+      "expected": [
+        "key news"
+      ],
+      "must_not": [
+        "key new (an everyday word)"
+      ]
+    },
+    {
+      "case": "tickle / tickles with the same meaning",
+      "expected": [
+        "one flat entry, forms [tickles]"
+      ],
+      "must_not": [
+        "a second sense with 1 anchor per use"
+      ]
+    },
+    {
+      "case": "sense whose spelling never occurs in the book",
+      "expected": [
+        "sense dropped, warning"
+      ],
+      "must_not": [
+        "sense with zero anchors"
+      ]
+    },
+    {
+      "case": "Out of My Mind migration (live flat glossary, 2445 words)",
+      "expected": [
+        "142 colliding key groups",
+        "112 entries with senses, 307 anchors",
+        "validator exit 0",
+        "1395 taps replayed, 0 mismatches"
+      ]
+    }
+  ]
+}
